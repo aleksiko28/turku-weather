@@ -23,7 +23,7 @@ export async function getWeatherByDate(
 
   try {
     // Connect to Azure Table Storage
-    const tableName = "WeatherData"
+    const tableName = "WeatherTurku"
     const accountName = process.env["AZURE_STORAGE_ACCOUNT_NAME"]
     const accountKey = process.env["AZURE_STORAGE_ACCOUNT_KEY"]
 
