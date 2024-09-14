@@ -19,14 +19,13 @@ export async function getWeatherByDate(
       status: 400,
       body: "Please pass a date and time in the query string",
     }
-    return
   }
 
   try {
     // Connect to Azure Table Storage
     const tableName = "WeatherData"
-    const accountName = process.env.AZURE_STORAGE_ACCOUNT_NAME as string
-    const accountKey = process.env.AZURE_STORAGE_ACCOUNT_KEY as string
+    const accountName = process.env["AZURE_STORAGE_ACCOUNT_NAME"]
+    const accountKey = process.env["AZURE_STORAGE_ACCOUNT_KEY"]
 
     const credential = new AzureNamedKeyCredential(accountName, accountKey)
     const tableClient = new TableClient(

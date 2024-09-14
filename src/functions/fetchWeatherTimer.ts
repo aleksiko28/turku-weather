@@ -12,7 +12,7 @@ export async function fetchWeatherTimer(
   const timeStamp = new Date().toISOString()
 
   // OpenWeatherMap API details
-  const apiKey = process.env.OPENWEATHERMAP_API_KEY as string
+  const apiKey = process.env["OPENWEATHERMAP_API_KEY"]
   const city = "Turku"
   const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
 
@@ -27,9 +27,9 @@ export async function fetchWeatherTimer(
     const temperature = (data as any).main.temp
 
     // Connect to Azure Table Storage
-    const tableName = "WeatherData"
-    const accountName = process.env.AZURE_STORAGE_ACCOUNT_NAME as string
-    const accountKey = process.env.AZURE_STORAGE_ACCOUNT_KEY as string
+    const tableName = "WeatherTurku"
+    const accountName = process.env["AZURE_STORAGE_ACCOUNT_NAME"]
+    const accountKey = process.env["AZURE_STORAGE_ACCOUNT_KEY"]
 
     const credential = new AzureNamedKeyCredential(accountName, accountKey)
     const tableClient = new TableClient(
