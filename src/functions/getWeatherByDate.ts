@@ -4,7 +4,7 @@ import {
   HttpResponseInit,
   InvocationContext,
 } from "@azure/functions"
-import { TableClient, AzureNamedKeyCredential } from "@azure/data-tables"
+import { TableClient, AzureNamedKeyCredential, odata } from "@azure/data-tables"
 
 export async function getWeatherByDate(
   request: HttpRequest,
@@ -34,11 +34,15 @@ export async function getWeatherByDate(
       credential
     )
 
-    // Query the table by PartitionKey and filter by the provided date/time
+    const date = new Date(dateStr)
+
     const partitionKey = "Turku"
+    const query = odata`PartitionKey eq '${partitionKey}' and Timestamp gt datetime'${date.toISOString()}'`
+
+    // Query the table by PartitionKey and filter by the provided date/time
     const entities = tableClient.listEntities({
       queryOptions: {
-        filter: `PartitionKey eq '${partitionKey}' and timestamp eq '${dateStr}'`,
+        filter: query,
       },
     })
 
